@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const EnemyProjectile = SpriteKind.create()
+}
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     controller.moveSprite(mySprite, 100, 100)
 })
@@ -19,9 +22,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, mySprite, 0, 0)
-    projectile.setVelocity(0, -50)
+        `, mySprite, 0, -50)
     music.playTone(262, music.beat(BeatFraction.Eighth))
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
+    if (projectile2.overlapsWith(mySprite)) {
+        mySprite.destroy(effects.fire, 500)
+        music.wawawawaa.play()
+    }
 })
 sprites.onDestroyed(SpriteKind.Enemy, function (sprite) {
     EnemyCounter += 1
@@ -48,6 +56,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     music.wawawawaa.play()
 })
 let EnemyCounter = 0
+let projectile2: Sprite = null
 let projectile: Sprite = null
 let mySprite: Sprite = null
 let mySprite3: Sprite = null
@@ -235,3 +244,26 @@ mySprite2.setPosition(0, 50)
 mySprite2.vx = 40
 mySprite2.vy = 1
 mySprite2.setFlag(SpriteFlag.BounceOnWall, true)
+mySprite3.vx = 20
+mySprite3.setFlag(SpriteFlag.BounceOnWall, true)
+forever(function () {
+    projectile2 = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . 2 2 . . . . . . . 
+        . . . . . . . 2 2 . . . . . . . 
+        . . . . . . . 2 2 . . . . . . . 
+        . . . . . . 2 2 2 2 . . . . . . 
+        . . . . . . . 2 2 . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, mySprite3, 0, 30)
+    pause(1000)
+})
