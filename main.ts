@@ -1,6 +1,3 @@
-namespace SpriteKind {
-    export const EnemyProjectile = SpriteKind.create()
-}
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     controller.moveSprite(mySprite, 100, 100)
 })
@@ -46,7 +43,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
     if (projectile.overlapsWith(mySprite3)) {
         mySprite3.destroy(effects.rings, 500)
         music.playTone(147, music.beat(BeatFraction.Whole))
-    } else {
+    } else if (projectile.overlapsWith(mySprite2)) {
         mySprite2.destroy(effects.spray, 500)
         music.playTone(262, music.beat(BeatFraction.Half))
     }
@@ -56,8 +53,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     music.wawawawaa.play()
 })
 let EnemyCounter = 0
-let projectile2: Sprite = null
 let projectile: Sprite = null
+let projectile2: Sprite = null
 let mySprite: Sprite = null
 let mySprite3: Sprite = null
 let mySprite2: Sprite = null
@@ -238,6 +235,42 @@ mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
+projectile2 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . 2 2 . . . . . . . 
+    . . . . . . . 2 2 . . . . . . . 
+    . . . . . . . 2 2 . . . . . . . 
+    . . . . . . 2 2 2 2 . . . . . . 
+    . . . . . . . 2 2 . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Projectile)
+projectile = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . 1 . . . . . . . 
+    . . . . . . . . 1 . . . . . . . 
+    . . . . . . . . 1 . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Projectile)
 mySprite.setPosition(80, 110)
 mySprite3.setPosition(10, 10)
 mySprite2.setPosition(0, 50)
